@@ -1,0 +1,46 @@
+service: acheev-backend
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-s3-sync
+
+package:
+  individually: true
+  exclude:
+    - test/**
+    - .git/**
+
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  cfLogs: true
+  stage: ${opt:stage, 'dev'}
+  environment: ${file(env.yml):${self:provider.stage}}
+#   iamRoleStatements:
+#     - Effect: Allow
+#       Action:
+#         - s3:*
+#       Resource: "arn:aws:s3:::${self:provider.environment.ACHEEV_BUCKET}/*"
+#      - dynamodb:*
+#      Resource: arn:aws:dynamodb:${self:provider.environment.SERVERLESS_REGION}:*:*
+#    - Effect: Allow
+#      Action:
+#      - SNS:*
+#      Resource: arn:aws:sns:${self:provider.environment.SERVERLESS_REGION}:*:*
+
+functions:
+  user:
+    handler: handler.user
+    events:
+      - http: ANY /user
+      - http: ANY /user/{proxy+}
