@@ -13,13 +13,13 @@ module.exports = () => {
         jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.JWT_SECRET_KEY,
       },
-      async (jwtPayload, cb) => {
+      async (jwtPayload, done) => {
         try {
           const user = await User.findById(jwtPayload._id);
 
-          cb(null, user);
+          return done(null, user);
         } catch (err) {
-          cb(err);
+          return done(err);
         }
       },
     ),
