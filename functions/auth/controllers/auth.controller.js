@@ -71,4 +71,52 @@ export default class AuthController {
       });
     })(req, res, next);
   }
+
+  static async signinByFacebook(req, res, next) {
+    passport.authenticate(
+      'facebook-token',
+      {
+        scope: ['email', 'public_profile'],
+        session: false,
+      },
+      (passportErr, user, info) => {
+        if (passportErr || !user) {
+          return res.error('User Not Authenticated', 401);
+        }
+
+        req.login(user, { session: false }, (loginErr) => {
+          if (loginErr) {
+            return res.error(loginErr.message);
+          }
+
+          const token = generateToken(user);
+          return res.success({ token });
+        });
+      },
+    )(req, res, next);
+  }
+
+  static async signinByGoogle(req, res, next) {
+    passport.authenticate(
+      'google-token',
+      {
+        scope: ['email', 'profile'],
+        session: false,
+      },
+      (passportErr, user, info) => {
+        if (passportErr || !user) {
+          return res.error('User Not Authenticated', 401);
+        }
+
+        req.login(user, { session: false }, (loginErr) => {
+          if (loginErr) {
+            return res.error(loginErr.message);
+          }
+
+          const token = generateToken(user);
+          return res.success({ token });
+        });
+      },
+    )(req, res, next);
+  }  
 }

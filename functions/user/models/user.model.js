@@ -47,6 +47,7 @@ if (!global.UserSchema) {
           ],
         }],
         required: [true, 'Please provide at least one role'],
+        default: ['elearner'],
       },
       image: ImageSchema,
       status: {
@@ -73,9 +74,12 @@ if (!global.UserSchema) {
       /* for social login */
       provider: {
         type: String,
+        enum: [
+          'facebook',
+          'google',
+        ],
       },
       providerData: {},
-      additionalProvidersData: {},
 
       /* for reset password */
       resetPasswordToken: {
