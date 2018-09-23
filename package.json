@@ -46,6 +46,7 @@
     "babel-runtime": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "braintree": "^2.12.0",
     "composable-middleware": "^0.3.0",
     "cors": "^2.8.4",
     "eslint-config-standard": "^12.0.0-alpha.0",

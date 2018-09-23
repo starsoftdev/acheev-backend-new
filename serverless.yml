@@ -45,6 +45,12 @@ functions:
       - http: ANY /auth
       - http: ANY /auth/{proxy+}
 
+  subscription:
+    handler: handler.subscription
+    events:
+      - http: ANY /subscription
+      - http: ANY /subscription/{proxy+}
+
   user:
     handler: handler.user
     events:

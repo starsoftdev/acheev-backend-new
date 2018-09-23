@@ -1,5 +1,5 @@
 import passport from 'passport';
-import GoogleTokenStrategy from 'passport-google-token';
+import { Strategy as GoogleTokenStrategy } from 'passport-google-token';
 
 import { User } from '../../../../user/models/user.model';
 
