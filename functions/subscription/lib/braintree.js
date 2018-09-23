@@ -23,7 +23,7 @@ class Braintree {
   async plans() {
     try {
       const res = await this.gateway.plan.all();
-console.log(res);
+
       return res.plans;
     } catch (err) {
       throw err;
