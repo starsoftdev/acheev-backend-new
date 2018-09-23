@@ -14,12 +14,10 @@ if (!global.UserSchema) {
       first_name: {
         type: String,
         trim: true,
-        required: true,
       },
       last_name: {
         type: String,
         trim: true,
-        required: true,
       },
       username: {
         type: String,
@@ -44,7 +42,7 @@ if (!global.UserSchema) {
             'administrator',
             'course-creator',
             'elearner',
-            'buyser',
+            'buyer',
             'seller',
           ],
         }],

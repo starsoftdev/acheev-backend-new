@@ -90,7 +90,7 @@ export default class UserController {
    * Upload photo to S3
    * Photo included a request body as a base64 encoded string
    */
-  static async updatePhoto(req, res) {
+  static async uploadPhoto(req, res) {
     if (!req.params.id) {
       return res.error('Invalid id supplied');
     }
@@ -105,8 +105,8 @@ export default class UserController {
         return res.error('Item with id not found', 404);
       }
 
-      // upload photo to S3
-      const filePath = await uploadToS3(req.body.photo, 'avatars');
+      // upload avatar to S3
+      const filePath = await uploadToS3(req.body.image, 'avatars');
 
       // update user image attribute
       const updated = _.assign(

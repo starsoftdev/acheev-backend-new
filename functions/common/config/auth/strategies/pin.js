@@ -24,7 +24,7 @@ module.exports = () => {
           if (user.status === 'suspended') {
             return done(null, false, {
               message: 'Your account has been suspended.'
-              + ' Please contact the Administrator (admin@lazarusnaturals.com) for assistance.',
+              + ' Please contact the Administrator for assistance.',
             });
           }
 

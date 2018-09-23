@@ -2,8 +2,8 @@ import axios from 'axios';
 
 import {
   MOCK_USER,
-  MOCK_IMAGE_ENCODED,
   UPDATE_MOCK_USER,
+  MOCK_IMAGE_ENCODED,
 } from './mock';
 
 jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
@@ -41,10 +41,7 @@ describe('User API', async () => {
     expect(res.status).toEqual(200);
     expect(typeof data).toBe('object');
 
-    expect(data.first_name).toEqual(UPDATE_MOCK_USER.first_name);
-    expect(data.last_name).toEqual(UPDATE_MOCK_USER.last_name);
     expect(data.username).toEqual(UPDATE_MOCK_USER.username);
-    expect(data.email).toEqual(UPDATE_MOCK_USER.email);
     expect(typeof data.password).toEqual('undefined');
   });
 
@@ -56,18 +53,18 @@ describe('User API', async () => {
     expect(Array.isArray(data)).toBe(true);
   });
 
-  it('upload avatar to s3 - [post] /user/:id/photo', async () => {
+  it('upload avatar - [post] /user/:id/avatar', async () => {
     const res = await axios.post(
-      `${BASE_URL}/${userId}/photo/`,
+      `${BASE_URL}/${userId}/avatar/`,
       {
-        photo: MOCK_IMAGE_ENCODED,
+        image: MOCK_IMAGE_ENCODED,
       },
     );
 
     expect(res.status).toEqual(200);
   });
 
-  it('soft delete user - [delete] /user/:id', async () => {
+  it('delete user - [delete] /user/:id', async () => {
     const res = await axios.delete(`${BASE_URL}/${userId}`);
 
     expect(res.status).toEqual(200);

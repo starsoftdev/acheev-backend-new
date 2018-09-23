@@ -9,7 +9,7 @@ export default async (attachment, dir = 'test') => {
     const fileTypeInfo = fileType(fileBuffer);
     const filePath = `${dir}/${Math.floor(new Date() / 1000)}.${fileTypeInfo.ext}`;
     const params = {
-      Bucket: process.env.LAZARUS_BUCKET,
+      Bucket: process.env.ACHEEV_BUCKET,
       Key: filePath,
       Body: fileBuffer,
       ACL: 'public-read',
@@ -19,7 +19,7 @@ export default async (attachment, dir = 'test') => {
 
     await S3.putObject(params).promise();
 
-    return `${process.env.LAZARUS_BUCKET_LINK}/${filePath}`;
+    return `${process.env.ACHEEV_BUCKET_LINK}/${filePath}`;
   } catch (err) {
     throw err;
   }

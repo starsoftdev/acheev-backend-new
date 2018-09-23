@@ -9,7 +9,7 @@ router.get('/', UserController.list);
 router.post('/', UserController.create);
 router.put('/:id', UserController.update);
 router.delete('/:id', UserController.destroy);
-router.post('/:id/photo', UserController.updatePhoto);
+router.post('/:id/avatar', UserController.uploadPhoto);
 router.delete('/email/:email', UserController.destroyByEmail);
 
 export default router;

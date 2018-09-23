@@ -26,19 +26,25 @@ provider:
   cfLogs: true
   stage: ${opt:stage, 'dev'}
   environment: ${file(env.yml):${self:provider.stage}}
-#   iamRoleStatements:
-#     - Effect: Allow
-#       Action:
-#         - s3:*
-#       Resource: "arn:aws:s3:::${self:provider.environment.ACHEEV_BUCKET}/*"
-#      - dynamodb:*
-#      Resource: arn:aws:dynamodb:${self:provider.environment.SERVERLESS_REGION}:*:*
-#    - Effect: Allow
-#      Action:
-#      - SNS:*
-#      Resource: arn:aws:sns:${self:provider.environment.SERVERLESS_REGION}:*:*
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "arn:aws:s3:::${self:provider.environment.ACHEEV_BUCKET}/*"
 
 functions:
+  account:
+    handler: handler.account
+    events:
+      - http: ANY /account
+      - http: ANY /account/{proxy+}
+
+  auth:
+    handler: handler.auth
+    events:
+      - http: ANY /auth
+      - http: ANY /auth/{proxy+}
+
   user:
     handler: handler.user
     events:
