@@ -10,6 +10,7 @@ if (process.env.MAILER_SERVICE_PROVIDER && process.env.MAILER_SERVICE_PROVIDER !
       user: process.env.MAILER_EMAIL_ID,
       pass: process.env.MAILER_PASSWORD,
     },
+    secureConnection: false,
   });
 } else {
   // for testing purposes
