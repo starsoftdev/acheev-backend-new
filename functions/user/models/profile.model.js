@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import { AddressSchema } from './address.model';
 import { CertificationSchema } from './certification.model';
+import { ExternalLinkSchema } from './external.link.model';
+import { LanguageSchema } from './language.model';
 
 if (!global.ProfileSchema) {
   mongoose.Promise = global.Promise;
@@ -15,6 +17,18 @@ if (!global.ProfileSchema) {
     },
     certifications: [{
       type: CertificationSchema,
+    }],
+    languages: [{
+      type: LanguageSchema,
+    }],
+    professional_presence: [{
+      type: ExternalLinkSchema,
+    }],
+    social_presence: [{
+      type: ExternalLinkSchema,
+    }],
+    skills: [{ // eg. Graphic Design
+      type: String,
     }],
   });
 }
