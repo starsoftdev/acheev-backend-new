@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 import { ImageSchema } from './image.model';
+import { ProfileSchema } from './profile.model';
 
 if (!global.UserSchema) {
   mongoose.Promise = global.Promise;
@@ -66,10 +67,13 @@ if (!global.UserSchema) {
           message: 'Pincode must be at least 4 chars long.',
         },
       },
+      profile: {
+        type: ProfileSchema,
+      },
       deleted: { // a logical delete flag for the cart
         type: Boolean,
         default: false,
-      },
+      },      
 
       /* for social login */
       provider: {
@@ -107,10 +111,10 @@ if (!global.UserSchema) {
     });
 
   /**
-   * virtual `profile` field
+   * virtual `compact` field
    */
   global.UserSchema
-    .virtual('profile')
+    .virtual('compact')
     .get(function () { // eslint-disable-line func-names
       return {
         _id: this._id,
@@ -119,7 +123,9 @@ if (!global.UserSchema) {
         username: this.username,
         email: this.email,
         roles: this.roles,
+        status: this.status,
         image: this.image,
+        profile: this.profile,
         dt_created: this.dt_created,
         dt_updated: this.dt_updated,
       };

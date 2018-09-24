@@ -27,7 +27,7 @@ export default class UserController {
     try {
       const user = await User.create(req.body);
 
-      return res.success(user.profile);
+      return res.success(user.compact);
     } catch (err) {
       return res.error(err.message);
     }
@@ -54,7 +54,7 @@ export default class UserController {
       const updated = _.assign(user, req.body);
       await updated.save();
 
-      return res.success(updated.profile);
+      return res.success(updated.compact);
     } catch (err) {
       return res.error(err.message);
     }
@@ -120,7 +120,7 @@ export default class UserController {
       );
       await updated.save();
 
-      return res.success(updated.profile);
+      return res.success(updated.compact);
     } catch (err) {
       return res.error(err.message);
     }
