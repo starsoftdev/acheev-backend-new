@@ -16,7 +16,7 @@ if (!global.LanguageSchema) {
         'basic',
         'conversational',
         'fluent',
-        'native/bilingual'
+        'native/bilingual',
       ],
       default: 'basic',
     },

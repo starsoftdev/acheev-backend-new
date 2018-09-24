@@ -37,7 +37,7 @@ module.exports = () => {
                 alt: 'avatar',
               };
             }
- 
+
             user = await User.create(userData);
           }
 

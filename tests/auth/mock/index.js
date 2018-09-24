@@ -1,12 +1,4 @@
-const MOCK_USER = {
-  first_name: 'angie',
-  last_name: 'lucas',
-  username: `angie.lucas${Date.now()}`,
-  email: `angie.lucas${Date.now()}@gmail.com`,
-  password: 'password',
-  roles: ['administrator'],
-  status: 'approved',
-};
+import { MOCK_USER } from '../../user/mock';
 
 const NEW_PASSWORD = 'new password';
 

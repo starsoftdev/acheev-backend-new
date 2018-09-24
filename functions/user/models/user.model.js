@@ -73,7 +73,7 @@ if (!global.UserSchema) {
       deleted: { // a logical delete flag for the cart
         type: Boolean,
         default: false,
-      },      
+      },
 
       /* for social login */
       provider: {
