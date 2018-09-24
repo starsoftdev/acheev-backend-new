@@ -41,8 +41,9 @@ describe('User API', async () => {
     expect(res.status).toEqual(200);
     expect(typeof data).toBe('object');
 
+    expect(data.first_name).toEqual(UPDATE_MOCK_USER.first_name);
+    expect(data.last_name).toEqual(UPDATE_MOCK_USER.last_name);
     expect(data.username).toEqual(UPDATE_MOCK_USER.username);
-    expect(typeof data.password).toEqual('undefined');
   });
 
   it('get all users - [get] /user', async () => {

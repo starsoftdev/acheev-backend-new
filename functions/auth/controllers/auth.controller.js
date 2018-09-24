@@ -79,7 +79,7 @@ export default class AuthController {
         scope: ['email', 'public_profile'],
         session: false,
       },
-      (passportErr, user, info) => {
+      (passportErr, user) => {
         if (passportErr || !user) {
           return res.error('User Not Authenticated', 401);
         }
@@ -103,7 +103,7 @@ export default class AuthController {
         scope: ['email', 'profile'],
         session: false,
       },
-      (passportErr, user, info) => {
+      (passportErr, user) => {
         if (passportErr || !user) {
           return res.error('User Not Authenticated', 401);
         }
@@ -118,5 +118,5 @@ export default class AuthController {
         });
       },
     )(req, res, next);
-  }  
+  }
 }

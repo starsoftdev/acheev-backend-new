@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import Braintree from '../lib/braintree';
 import { Subscription } from '../models/subscription.model';
 
@@ -62,7 +60,7 @@ export default class SubscriptionController {
       const subscription = await Subscription.create({
         user: req.user._id,
         subscription_id: txnId,
-        plan_id: plan,
+        plan_id: req.body.plan,
       });
 
       return res.success(subscription);

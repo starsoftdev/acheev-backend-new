@@ -39,8 +39,8 @@ class Braintree {
       if (!res.success) {
         throw new Error('Failed to create customer');
       }
-      
-      const token = res.customer.paymentMethods[0].token;
+
+      const { token } = res.customer.paymentMethods[0];
       const subRes = await this.gateway.subscription.create({
         paymentMethodToken: token,
         planId: plan,
@@ -62,7 +62,7 @@ class Braintree {
       if (!res.success) {
         throw new Error(res.message);
       }
-      
+
       return true;
     } catch (err) {
       throw err;

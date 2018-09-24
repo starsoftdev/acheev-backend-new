@@ -4,6 +4,9 @@ import { AddressSchema } from './address.model';
 import { CertificationSchema } from './certification.model';
 import { ExternalLinkSchema } from './external.link.model';
 import { LanguageSchema } from './language.model';
+import { PortfolioSchema } from './portfolio.model';
+import { UserRatingSchema } from './user.rating.model';
+import { UserStatSchema } from './user.stat.model';
 
 if (!global.ProfileSchema) {
   mongoose.Promise = global.Promise;
@@ -12,6 +15,12 @@ if (!global.ProfileSchema) {
    * Profile schema
    */
   global.ProfileSchema = new mongoose.Schema({
+    title: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
     address: {
       type: AddressSchema,
     },
@@ -21,14 +30,23 @@ if (!global.ProfileSchema) {
     languages: [{
       type: LanguageSchema,
     }],
+    portfolios: [{
+      type: PortfolioSchema,
+    }],
     professional_presence: [{
       type: ExternalLinkSchema,
+    }],
+    rating: {
+      type: UserRatingSchema,
+    },
+    skills: [{ // eg. Graphic Design
+      type: String,
     }],
     social_presence: [{
       type: ExternalLinkSchema,
     }],
-    skills: [{ // eg. Graphic Design
-      type: String,
+    stats: [{
+      type: UserStatSchema,
     }],
   });
 }
