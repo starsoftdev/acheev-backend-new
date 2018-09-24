@@ -8,7 +8,7 @@ import { User } from '../../user/models/user.model';
  * and return it in the response
  */
 export const generateToken = user => jwt.sign(
-  user.profile,
+  user.compact,
   process.env.JWT_SECRET_KEY,
   { expiresIn: 60 * 60 * 24 * 31 }, // 1 month
 );

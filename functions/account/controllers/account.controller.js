@@ -80,7 +80,7 @@ export default class AccountController {
       );
       await user.save();
 
-      return res.success(user.profile);
+      return res.success(user.compact);
     } catch (err) {
       return res.error(err.message);
     }
