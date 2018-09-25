@@ -14,7 +14,7 @@ if (!global.ImageSchema) {
       alt: { // alt text
         type: String,
       },
-      position: {
+      position: { // 0 - featured image
         type: Number,
         default: 0,
       },
