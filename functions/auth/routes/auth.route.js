@@ -11,14 +11,16 @@ router.post('/forgot', PasswordController.forgot);
 router.post('/reset/:token', PasswordController.reset);
 
 // setting up the authentication api
-router.post('/register', AuthController.signup);
+router.post('/register-token', AuthController.signupToken);
+
+router.post('/register/:token', AuthController.signup);
 router.post('/login', AuthController.signin);
 router.post('/login/pin', AuthController.signinByPin);
 router.post('/login/facebook', AuthController.signinByFacebook);
 router.post('/login/google', AuthController.signinByGoogle);
 router.get('/logout', passport.authenticate('jwt', { session: false }), AuthController.signout);
 
-router.post('/signup', AuthController.signup);
+router.post('/signup/:token', AuthController.signup);
 router.post('/signin', AuthController.signin);
 router.post('/signin/pin', AuthController.signinByPin);
 router.post('/signin/facebook', AuthController.signinByFacebook);

@@ -85,6 +85,14 @@ if (!global.UserSchema) {
       },
       providerData: {},
 
+      /* for registration */
+      signupToken: {
+        type: String,
+      },
+      signupExpires: {
+        type: Date,
+      },
+
       /* for reset password */
       resetPasswordToken: {
         type: String,

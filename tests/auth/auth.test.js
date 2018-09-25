@@ -9,11 +9,27 @@ jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/auth`;
 
 describe('Auth API', async () => {
-  let resetToken;
+  let resetToken, registerToken;
 
-  it('register a new user - [post] /auth/signup', async () => {
+  it('create a register token - [post] /auth/register-token', async () => {
     const res = await axios.post(
-      `${BASE_URL}/signup`,
+      `${BASE_URL}/register-token`,
+      {
+        email: MOCK_USER.email,
+      },
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(typeof data).toBe('object');
+    expect(data).toHaveProperty('token');
+
+    registerToken = data.token;
+  });
+
+  it('register a new user - [post] /auth/signup/:token', async () => {
+    const res = await axios.post(
+      `${BASE_URL}/signup/${registerToken}`,
       MOCK_USER,
     );
     const { data } = res;

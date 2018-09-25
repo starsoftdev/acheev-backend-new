@@ -16,8 +16,7 @@ module.exports = () => {
 
           if (user.status === 'pending') {
             return done(null, false, {
-              message: 'Your account status is currently being reviewed.'
-              + ' You will receive notification when you have been approved.',
+              message: 'Your account is not complete yet.',
             });
           }
 
