@@ -124,4 +124,35 @@ export default class OfferController {
       return res.error(err.message);
     }
   }
+
+  /**
+   * Upload thumbnails to S3
+   * Thumbnails included in a request body as a base64 encoded string
+   */
+  static async uploadThumbnails(req, res) {
+    if (!req.params.user_id) {
+      return res.error('Invalid id supplied');
+    }
+
+    try {
+      // find user first
+      const user = await User.findOne({
+        _id: req.params.user_id,
+        deleted: false,
+      });
+      if (!user) {
+        return res.error('User with id not found', 404);
+      }
+
+      const uploadPromises = [];
+      _.each(req.body.thumbnails, (thumbnail) => {
+        uploadPromises.push(uploadToS3(thumbnail, `${user._id}-thumbnails`));
+      });
+      const uploadLinks = await Promise.all(uploadPromises);
+
+      return res.success(uploadLinks);
+    } catch (err) {
+      return res.error(err.message);
+    }
+  }
 }
