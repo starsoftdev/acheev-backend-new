@@ -41,6 +41,19 @@ module.exports = () => {
             user = await User.create(userData);
           }
 
+          if (user.status === 'pending') {
+            return done(null, false, {
+              message: 'Your account is not complete yet.',
+            });
+          }
+
+          if (user.status === 'suspended') {
+            return done(null, false, {
+              message: 'Your account has been suspended.'
+              + ' Please contact the Administrator for assistance.',
+            });
+          }
+
           return done(null, user);
         } catch (err) {
           return done(err);

@@ -146,7 +146,7 @@ export default class OfferController {
 
       const uploadPromises = [];
       _.each(req.body.thumbnails, (thumbnail) => {
-        uploadPromises.push(uploadToS3(thumbnail, `${user._id}-thumbnails`));
+        uploadPromises.push(uploadToS3(thumbnail, `offer-thumbnails-${user._id}`));
       });
       const uploadLinks = await Promise.all(uploadPromises);
 
