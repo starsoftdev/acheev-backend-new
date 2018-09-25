@@ -25,10 +25,6 @@ export default class PasswordController {
       await user.save();
 
       // send email notification
-      let httpTransport = 'http://';
-      if (process.env.SECURE_SSL) {
-        httpTransport = 'https://';
-      }
       const mailOptions = {
         to: user.email,
         from: process.env.FROM_EMAIL,
@@ -36,7 +32,7 @@ export default class PasswordController {
         template: 'forgot-password-email',
         context: {
           name: `${user.first_name} ${user.last_name}`,
-          url: `${httpTransport}${req.headers.host}/auth/reset/${token}`,
+          url: `${process.env.FRONT_BASE_URL}/reset-password?token=${token}`,
         },
       };
       await mailer.sendMail(mailOptions);
