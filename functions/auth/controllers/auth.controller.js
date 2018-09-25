@@ -118,6 +118,18 @@ export default class AuthController {
       );
       await updated.save();
       
+      // send email notification
+      const mailOptions = {
+        to: updated.email,
+        from: process.env.FROM_EMAIL,
+        subject: 'Registration Successful',
+        template: 'registration-success-email',
+        context: {
+          name: `${updated.first_name} ${updated.last_name}`,
+        },
+      };
+      await mailer.sendMail(mailOptions);
+
       req.login(updated, { session: false }, (loginErr) => {
         if (loginErr) {
           return res.error(loginErr.message);
