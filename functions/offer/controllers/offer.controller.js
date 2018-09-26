@@ -93,7 +93,7 @@ export default class OfferController {
       const offer = await Offer.create(_.assign(
         req.body,
         {
-          user: req.params.user_id
+          user: req.params.user_id,
         },
       ));
 
