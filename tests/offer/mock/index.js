@@ -3,7 +3,7 @@ const MOCK_OFFER = {
   category: 'Graphic Design',
   sub_category: 'Logo Design',
   price: 20,
-  time_of_delivery: 5,
+  time_of_delivery: 5, // 5 days
   description: 'This is a test offer.',
   opening_message: 'This is a test opening message.',
   status: 'published',
@@ -17,6 +17,6 @@ const MOCK_IMAGE_ENCODED = '/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUTExISFhIV
 
 module.exports = {
   MOCK_OFFER,
-  UPDATE_MOCK_USER,
+  UPDATE_MOCK_OFFER,
   MOCK_IMAGE_ENCODED,
 };
