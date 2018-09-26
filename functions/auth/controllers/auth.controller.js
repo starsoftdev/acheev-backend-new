@@ -73,7 +73,7 @@ export default class AuthController {
         subject: 'Complete Registration',
         template: 'complete-registration-email',
         context: {
-          url: `${process.env.FRONT_BASE_URL}/user-register?token=${token}`,
+          url: `${process.env.FRONT_BASE_URL}/register/${token}`,
         },
       };
       await mailer.sendMail(mailOptions);
