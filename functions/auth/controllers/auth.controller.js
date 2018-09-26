@@ -117,7 +117,7 @@ export default class AuthController {
         },
       );
       await updated.save();
-      
+
       // send email notification
       const mailOptions = {
         to: updated.email,

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import _ from 'lodash';
 
 import {
   MOCK_OFFER,
@@ -14,6 +15,7 @@ const BASE_URL = `${process.env.CONFIG_API_URL}/offer`;
 describe('Offer API', async () => {
   let offerId;
   let userId;
+  let thumbnails = [];
 
   it('create an offer owner - [post] /user', async () => {
     const res = await axios.post(
@@ -46,8 +48,74 @@ describe('Offer API', async () => {
     expect(data.description).toEqual(MOCK_OFFER.description);
     expect(data.opening_message).toEqual(MOCK_OFFER.opening_message);
     expect(data.status).toEqual(MOCK_OFFER.status);
-    
+
     offerId = data._id; /* eslint no-underscore-dangle: 0 */
+  });
+
+  it('get the list of all offers - [get] /offer', async () => {
+    const res = await axios.get(
+      `${BASE_URL}`,
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  it('get the list of offers by a user - [get] /offer/user/:user_id', async () => {
+    const res = await axios.get(
+      `${BASE_URL}/user/${userId}`,
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(Array.isArray(data)).toBe(true);
+  });
+
+  it('upload thumbnails for an offer - [post] /offer/user/:user_id/thumbnails', async () => {
+    const res = await axios.post(
+      `${BASE_URL}/user/${userId}/thumbnails/`,
+      {
+        thumbnails: [MOCK_IMAGE_ENCODED],
+      },
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(Array.isArray(data)).toBe(true);
+
+    thumbnails = data;
+  });
+
+  it('update an offer - [put] /offer/:id', async () => {
+    const res = await axios.put(
+      `${BASE_URL}/${offerId}`,
+      _.assign(
+        UPDATE_MOCK_OFFER,
+        {
+          gallery: [
+            {
+              src: thumbnails[0],
+              alt: 'offer thumbnail',
+              position: 0, // featured image
+            },
+            {
+              src: thumbnails[0],
+              alt: 'offer thumbnail',
+              position: 1,
+            },
+          ],
+        },
+      ),
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(typeof data).toBe('object');
+
+    expect(data.opening_message).toEqual(UPDATE_MOCK_OFFER.opening_message);
+    expect(Array.isArray(data.gallery)).toBe(true);
+    expect(data.gallery.length).toBe(2);
   });
 
   it('delete offer - [delete] /offer/:id', async () => {
