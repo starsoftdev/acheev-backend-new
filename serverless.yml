@@ -36,29 +36,59 @@ functions:
   account:
     handler: handler.account
     events:
-      - http: ANY /account
-      - http: ANY /account/{proxy+}
+      - http:
+          path: account
+          method: ANY
+          cors: true
+      - http:
+          path: account/{proxy+}
+          method: ANY
+          cors: true
 
   auth:
     handler: handler.auth
     events:
-      - http: ANY /auth
-      - http: ANY /auth/{proxy+}
+      - http:
+          path: auth
+          method: ANY
+          cors: true
+      - http:
+          path: auth/{proxy+}
+          method: ANY
+          cors: true
 
   offer:
     handler: handler.offer
     events:
-      - http: ANY /offer
-      - http: ANY /offer/{proxy+}
+      - http:
+          path: offer
+          method: ANY
+          cors: true
+      - http:
+          path: offer/{proxy+}
+          method: ANY
+          cors: true
 
   subscription:
     handler: handler.subscription
     events:
-      - http: ANY /subscription
-      - http: ANY /subscription/{proxy+}
+      - http:
+          path: subscription
+          method: ANY
+          cors: true
+      - http:
+          path: subscription/{proxy+}
+          method: ANY
+          cors: true
 
   user:
     handler: handler.user
     events:
-      - http: ANY /user
-      - http: ANY /user/{proxy+}
+      - http:
+          path: user
+          method: ANY
+          cors: true
+      - http:
+          path: user/{proxy+}
+          method: ANY
+          cors: true
