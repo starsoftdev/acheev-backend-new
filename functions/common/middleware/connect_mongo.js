@@ -6,7 +6,11 @@ module.exports = async (req, res, next) => {
       return next();
     }
 
-    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      bufferCommands: false,
+      bufferMaxEntries: 0,
+    });
     next();
   } catch (err) {
     res.status(400).json({
