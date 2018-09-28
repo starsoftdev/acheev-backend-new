@@ -4,6 +4,7 @@ import passport from 'passport';
 const router = express.Router();
 
 // middlewares
+router.use(require('./connect_mongo'));
 router.use(require('./allow_cors'));
 router.use(require('./res_error'));
 router.use(require('./res_success'));
