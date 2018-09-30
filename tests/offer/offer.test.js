@@ -76,7 +76,10 @@ describe('Offer API', async () => {
     const res = await axios.post(
       `${BASE_URL}/user/${userId}/thumbnails/`,
       {
-        thumbnails: [MOCK_IMAGE_ENCODED],
+        thumbnails: [
+          MOCK_IMAGE_ENCODED,
+          MOCK_IMAGE_ENCODED,
+        ],
       },
     );
     const { data } = res;
@@ -100,7 +103,7 @@ describe('Offer API', async () => {
               position: 0, // featured image
             },
             {
-              src: thumbnails[0],
+              src: thumbnails[1],
               alt: 'offer thumbnail',
               position: 1,
             },

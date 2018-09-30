@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { ExtraServiceSchema } from './extra.service.model';
+import { FaqSchema } from './faq.model';
 import { ImageSchema } from '../../user/models/image.model';
 
 if (!global.OfferSchema) {
@@ -23,6 +25,10 @@ if (!global.OfferSchema) {
       sub_category: {
         type: String,
       },
+      currency: {
+        type: String,
+        default: 'USD',
+      },
       price: {
         type: Number,
       },
@@ -45,8 +51,14 @@ if (!global.OfferSchema) {
           'published',
         ],
       },
+      faq: [{
+        type: FaqSchema,
+      }],
       tags: [{
         type: String,
+      }],
+      extra_services: [{
+        type: ExtraServiceSchema,
       }],
       deleted: { // a logical delete flag for the cart
         type: Boolean,
