@@ -45,6 +45,9 @@ if (!global.OfferSchema) {
           'published',
         ],
       },
+      tags: [{
+        type: String,
+      }],
       deleted: { // a logical delete flag for the cart
         type: Boolean,
         default: false,
