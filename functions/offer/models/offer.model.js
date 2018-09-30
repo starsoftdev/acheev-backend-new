@@ -14,7 +14,7 @@ if (!global.OfferSchema) {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
-      job_name: {
+      offer_name: {
         type: String,
       },
       category: {

@@ -1,5 +1,5 @@
 const MOCK_OFFER = {
-  job_name: 'Test Job',
+  offer_name: 'Test Job',
   category: 'Graphic Design',
   sub_category: 'Logo Design',
   price: 20,
