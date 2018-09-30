@@ -2,12 +2,31 @@ const MOCK_OFFER = {
   offer_name: 'Test Job',
   category: 'Graphic Design',
   sub_category: 'Logo Design',
+  currency: 'USD', // optional
   price: 20,
   time_of_delivery: 5, // 5 days
   description: 'This is a test offer.',
   opening_message: 'This is a test opening message.',
   status: 'published',
   tags: ['arshdeep', 'kolby', 'design'],
+  extra_services: [
+    {
+      description: 'Extra Service 1',
+      currency: 'USD', // optional
+      price: 5.0,
+    },
+    {
+      description: 'Extra Service 2',
+      currency: 'USD', // optional
+      price: 5.5,
+    },
+  ],
+  faq: [
+    {
+      question: 'Do you translate to English as well?',
+      answer: 'Yes. I also translate from English to Hebrew.',
+    },
+  ],
 };
 
 const UPDATE_MOCK_OFFER = {
