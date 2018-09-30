@@ -7,6 +7,7 @@ const MOCK_OFFER = {
   description: 'This is a test offer.',
   opening_message: 'This is a test opening message.',
   status: 'published',
+  tags: ['arshdeep', 'kolby', 'design'],
 };
 
 const UPDATE_MOCK_OFFER = {
