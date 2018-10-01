@@ -88,4 +88,27 @@ export default class RatingController {
       return res.error(err.message);
     }
   }
+
+  /**
+   * return the list of rating entries for the user
+   */
+  static async list(req, res) {
+    if (!req.params.user_id) {
+      return res.error('Invalid user id supplied');
+    }
+
+    try {
+      const ratings = await Rating
+        .find({
+          user: req.params.user_id,
+          deleted: false,
+        })
+        .populate('user')
+        .populate('left_by');
+
+      return res.success(ratings);
+    } catch (err) {
+      return res.error(err.message);
+    }
+  }
 }
