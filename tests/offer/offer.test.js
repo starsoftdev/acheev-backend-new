@@ -52,6 +52,23 @@ describe('Offer API', async () => {
     offerId = data._id; /* eslint no-underscore-dangle: 0 */
   });
 
+  it('get a single offer - [get] /offer/:id', async() => {
+    const res = await axios.get(`${BASE_URL}/${offerId}`);
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(typeof data).toBe('object');
+
+    expect(data.job_name).toEqual(MOCK_OFFER.job_name);
+    expect(data.category).toEqual(MOCK_OFFER.category);
+    expect(data.sub_category).toEqual(MOCK_OFFER.sub_category);
+    expect(data.price).toEqual(MOCK_OFFER.price);
+    expect(data.time_of_delivery).toEqual(MOCK_OFFER.time_of_delivery);
+    expect(data.description).toEqual(MOCK_OFFER.description);
+    expect(data.opening_message).toEqual(MOCK_OFFER.opening_message);
+    expect(data.status).toEqual(MOCK_OFFER.status);
+  });
+
   it('get the list of all offers - [get] /offer', async () => {
     const res = await axios.get(
       `${BASE_URL}`,

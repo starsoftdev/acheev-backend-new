@@ -6,6 +6,7 @@ import OfferController from '../controllers/offer.controller';
 const router = express.Router();
 
 router.get('/', OfferController.list);
+router.get('/:id', OfferController.getOne);
 router.put('/:id', OfferController.update);
 router.delete('/:id', OfferController.destroy);
 
