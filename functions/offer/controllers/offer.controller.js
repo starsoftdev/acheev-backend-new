@@ -37,6 +37,8 @@ export default class OfferController {
         return res.error('User with id not found', 404);
       }
 
+      await Offer.populate(offer, { path: 'user' });
+
       return res.success(offer);
     } catch (err) {
       return res.error(err.message);
@@ -63,6 +65,7 @@ export default class OfferController {
       delete req.body._id; // eslint-disable-line no-underscore-dangle
       const updated = _.assign(offer, req.body);
       await updated.save();
+      await Offer.populate(updated, { path: 'user' });
 
       return res.success(updated);
     } catch (err) {
@@ -119,6 +122,7 @@ export default class OfferController {
           user: req.params.user_id,
         },
       ));
+      await Offer.populate(offer, { path: 'user' });
 
       return res.success(offer);
     } catch (err) {
