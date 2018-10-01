@@ -10,4 +10,6 @@ router.post('/', RatingController.create);
 router.put('/:id', RatingController.update);
 router.delete('/:id', RatingController.destroy);
 
+router.get('/user/:user_id', RatingController.listByUser);
+
 export default router;
