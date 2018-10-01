@@ -12,6 +12,24 @@ if (!global.RatingSchema) {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
       },
+      left_by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      offer_id: {
+        type: String,
+      },
+
+      communication: {
+        type: Number,
+      },
+      service_integrity: {
+        type: Number,
+      },
+      would_recommend: {
+        type: Number,
+      },
+
       deleted: { // logical delete
         type: Boolean,
         default: false,
