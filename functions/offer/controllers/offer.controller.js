@@ -21,6 +21,29 @@ export default class OfferController {
   }
 
   /**
+   * get a single offer
+   */
+  static async getOne(req, res) {
+    if (!req.params.id) {
+      return res.error('Invalid id supplied');
+    }
+
+    try {
+      const offer = await Offer.findOne({
+        _id: req.params.id,
+        deleted: false,
+      });
+      if (!offer) {
+        return res.error('User with id not found', 404);
+      }
+
+      return res.success(offer);
+    } catch (err) {
+      return res.error(err.message);
+    }
+  }
+
+  /**
    * update an offer
    */
   static async update(req, res) {
