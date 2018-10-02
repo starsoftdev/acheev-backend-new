@@ -69,6 +69,15 @@ describe('Offer API', async () => {
     expect(data.status).toEqual(MOCK_OFFER.status);
   });
 
+  it('get the total count of offers - [get] /offer/count', async () => {
+    const res = await axios.get(
+      `${BASE_URL}/count`,
+    );
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+  });
+
   it('get the list of all offers - [get] /offer?page=XXX&limit=XXX', async () => {
     const res = await axios.get(
       `${BASE_URL}?page=0&limit=5`,
