@@ -9,10 +9,18 @@ export default class OfferController {
    * return the list of all offers
    */
   static async list(req, res) {
+    const pageOptions = {
+      page: parseInt(req.query.page || 0),
+      limit: parseInt(req.query.limit || 10),
+    }
+
     try {
       const offers = await Offer
         .find({ deleted: false })
-        .populate('user');
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .populate('user')
+        .exec();
 
       return res.success(offers);
     } catch (err) {
@@ -138,12 +146,19 @@ export default class OfferController {
       return res.error('Invalid id supplied');
     }
 
+    const pageOptions = {
+      page: parseInt(req.query.page || 0),
+      limit: parseInt(req.query.limit || 10),
+    }
+
     try {
       const offers = await Offer
         .find({
           user: req.params.user_id,
           deleted: false,
         })
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
         .populate('user');
 
       return res.success(offers);

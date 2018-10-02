@@ -69,9 +69,9 @@ describe('Offer API', async () => {
     expect(data.status).toEqual(MOCK_OFFER.status);
   });
 
-  it('get the list of all offers - [get] /offer', async () => {
+  it('get the list of all offers - [get] /offer?page=XXX&limit=XXX', async () => {
     const res = await axios.get(
-      `${BASE_URL}`,
+      `${BASE_URL}?page=0&limit=5`,
     );
     const { data } = res;
 
@@ -79,9 +79,9 @@ describe('Offer API', async () => {
     expect(Array.isArray(data)).toBe(true);
   });
 
-  it('get the list of offers by a user - [get] /offer/user/:user_id', async () => {
+  it('get the list of offers by a user - [get] /offer/user/:user_id?page=XXX&limit=XXX', async () => {
     const res = await axios.get(
-      `${BASE_URL}/user/${userId}`,
+      `${BASE_URL}/user/${userId}?page=0&limit=5`,
     );
     const { data } = res;
 
