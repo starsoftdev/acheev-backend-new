@@ -92,7 +92,7 @@ export default class RatingController {
   /**
    * return the list of rating entries for the user
    */
-  static async list(req, res) {
+  static async listByUser(req, res) {
     if (!req.params.user_id) {
       return res.error('Invalid user id supplied');
     }
