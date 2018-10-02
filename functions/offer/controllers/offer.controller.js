@@ -29,6 +29,21 @@ export default class OfferController {
   }
 
   /**
+   * return the number of offers
+   */
+  static async count(req, res) {
+    try {
+      const count = await Offer
+        .find({ deleted: false })
+        .count();
+
+      return res.success(count);
+    } catch (err) {
+      return res.error(err.message);
+    }
+  }
+
+  /**
    * get a single offer
    */
   static async getOne(req, res) {
@@ -146,19 +161,12 @@ export default class OfferController {
       return res.error('Invalid id supplied');
     }
 
-    const pageOptions = {
-      page: parseInt(req.query.page || 0),
-      limit: parseInt(req.query.limit || 10),
-    }
-
     try {
       const offers = await Offer
         .find({
           user: req.params.user_id,
           deleted: false,
         })
-        .skip(pageOptions.page * pageOptions.limit)
-        .limit(pageOptions.limit)
         .populate('user');
 
       return res.success(offers);
