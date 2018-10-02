@@ -52,7 +52,7 @@ describe('Offer API', async () => {
     offerId = data._id; /* eslint no-underscore-dangle: 0 */
   });
 
-  it('get a single offer - [get] /offer/:id', async() => {
+  it('get a single offer - [get] /offer/:id', async () => {
     const res = await axios.get(`${BASE_URL}/${offerId}`);
     const { data } = res;
 
@@ -69,23 +69,20 @@ describe('Offer API', async () => {
     expect(data.status).toEqual(MOCK_OFFER.status);
   });
 
-  it('get the total count of offers - [get] /offer/count', async () => {
-    const res = await axios.get(
-      `${BASE_URL}/count`,
-    );
-    const { data } = res;
-
-    expect(res.status).toEqual(200);
-  });
-
-  it('get the list of all offers - [get] /offer?page=XXX&limit=XXX', async () => {
+  it('get the list of offers - [get] /offer?page=XXX&limit=XXX', async () => {
     const res = await axios.get(
       `${BASE_URL}?page=0&limit=5`,
     );
     const { data } = res;
 
     expect(res.status).toEqual(200);
-    expect(Array.isArray(data)).toBe(true);
+    expect(typeof data).toBe('object');
+
+    expect(data).toHaveProperty('total');
+    expect(data).toHaveProperty('limit');
+    expect(data).toHaveProperty('page');
+    expect(data).toHaveProperty('offers');
+    expect(Array.isArray(data.offers)).toBe(true);
   });
 
   it('get the list of offers by a user - [get] /offer/user/:user_id?page=XXX&limit=XXX', async () => {

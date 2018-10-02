@@ -10,11 +10,15 @@ export default class OfferController {
    */
   static async list(req, res) {
     const pageOptions = {
-      page: parseInt(req.query.page || 0),
-      limit: parseInt(req.query.limit || 10),
-    }
+      page: parseInt(req.query.page || 0, 10),
+      limit: parseInt(req.query.limit || 10, 10),
+    };
 
     try {
+      const total = await Offer
+        .find({ deleted: false })
+        .count();
+
       const offers = await Offer
         .find({ deleted: false })
         .skip(pageOptions.page * pageOptions.limit)
@@ -22,22 +26,12 @@ export default class OfferController {
         .populate('user')
         .exec();
 
-      return res.success(offers);
-    } catch (err) {
-      return res.error(err.message);
-    }
-  }
-
-  /**
-   * return the number of offers
-   */
-  static async count(req, res) {
-    try {
-      const count = await Offer
-        .find({ deleted: false })
-        .count();
-
-      return res.success(count);
+      return res.success({
+        total,
+        limit: pageOptions.limit,
+        page: pageOptions.page,
+        offers,
+      });
     } catch (err) {
       return res.error(err.message);
     }
