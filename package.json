@@ -37,7 +37,8 @@
     "serverless-s3-sync": "^1.6.1",
     "serverless-webpack": "^5.1.0",
     "webpack": "^4.16.3",
-    "webpack-node-externals": "^1.6.0"
+    "webpack-node-externals": "^1.6.0",
+    "yenv": "^2.1.0"
   },
   "dependencies": {
     "acl": "^0.4.11",

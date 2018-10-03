@@ -1,13 +1,14 @@
 import axios from 'axios';
 import _ from 'lodash';
 
+import { User } from '../../functions/user/models/user.model';
+
+import { MOCK_USER } from '../user/mock';
 import {
   MOCK_OFFER,
   UPDATE_MOCK_OFFER,
   MOCK_IMAGE_ENCODED,
 } from './mock';
-
-import { MOCK_USER } from '../user/mock';
 
 jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/offer`;
@@ -17,17 +18,19 @@ describe('Offer API', async () => {
   let userId;
   let thumbnails = [];
 
-  it('create an offer owner - [post] /user', async () => {
-    const res = await axios.post(
-      `${process.env.CONFIG_API_URL}/user`,
-      MOCK_USER,
-    );
-    const { data } = res;
+  /**
+   * create a test user
+   */
+  beforeAll(async () => {
+    const user = await User.create(MOCK_USER);
+    userId = user._id;
+  });
 
-    expect(res.status).toEqual(200);
-    expect(typeof data).toBe('object');
-
-    userId = data._id; /* eslint no-underscore-dangle: 0 */
+  /**
+   * remove test user (soft delete)
+   */
+  afterAll(async () => {
+    await User.findByIdAndUpdate(userId, { deleted: true });
   });
 
   it('create an offer - [post] /offer/user/:user_id', async () => {
@@ -146,13 +149,6 @@ describe('Offer API', async () => {
 
   it('delete offer - [delete] /offer/:id', async () => {
     const res = await axios.delete(`${BASE_URL}/${offerId}`);
-
-    expect(res.status).toEqual(200);
-    expect(res.data).toEqual('Success');
-  });
-
-  it('delete user - [delete] /user/:id', async () => {
-    const res = await axios.delete(`${process.env.CONFIG_API_URL}/user/${userId}`);
 
     expect(res.status).toEqual(200);
     expect(res.data).toEqual('Success');
