@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { User } from '../../functions/user/models/user.model';
+
 import {
   MOCK_USER,
   NEW_PASSWORD,
@@ -11,6 +13,10 @@ const BASE_URL = `${process.env.CONFIG_API_URL}/auth`;
 describe('Auth API', async () => {
   let resetToken;
   let registerToken;
+
+  afterAll(async () => {
+    await User.findOneAndUpdate({ email: MOCK_USER.email }, { deleted: true });
+  });
 
   it('create a register token - [post] /auth/register-token', async () => {
     const res = await axios.post(
@@ -100,10 +106,5 @@ describe('Auth API', async () => {
     expect(res.status).toEqual(200);
     expect(typeof data).toBe('object');
     expect(data).toHaveProperty('token');
-  });
-
-  it('soft delete user - [delete] /user/email/:email', async () => {
-    const res = await axios.delete(`${process.env.CONFIG_API_URL}/user/email/${MOCK_USER.email}`);
-    expect(res.status).toEqual(200);
   });
 });
