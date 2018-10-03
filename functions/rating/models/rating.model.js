@@ -11,11 +11,14 @@ if (!global.RatingSchema) {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
       },
       left_by: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true,
       },
+
       offer_id: {
         type: String,
       },
