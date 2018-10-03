@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { User } from '../../functions/user/models/user.model';
+
 import {
   MOCK_USER,
   UPDATE_MOCK_USER,
@@ -10,13 +12,24 @@ import {
 jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/account`;
 
-describe('Account API, requires token header', async () => {
+describe('Account API', async () => {
   let token;
 
-  it('register a new user - [post] /auth/signup', async () => {
+  beforeAll(async () => {
+    await User.create(MOCK_USER);
+  });
+
+  afterAll(async () => {
+    await User.findOneAndUpdate({ email: MOCK_USER.email }, { deleted: true });
+  });
+
+  it('get an authorization token - [post] /auth/signin', async () => {
     const res = await axios.post(
-      `${process.env.CONFIG_API_URL}/auth/signup`,
-      MOCK_USER,
+      `${process.env.CONFIG_API_URL}/auth/signin`,
+      {
+        email: MOCK_USER.email,
+        password: MOCK_USER.password,
+      },
     );
     const { data } = res;
 
@@ -103,11 +116,5 @@ describe('Account API, requires token header', async () => {
     expect(res.status).toEqual(200);
     expect(typeof data).toBe('object');
     expect(data).toHaveProperty('image');
-  });
-
-  it('soft delete user - [delete] /user/email/:email', async () => {
-    const res = await axios.delete(`${process.env.CONFIG_API_URL}/user/email/${MOCK_USER.email}`);
-
-    expect(res.status).toEqual(200);
   });
 });
