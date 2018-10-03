@@ -69,6 +69,18 @@ functions:
           method: ANY
           cors: true
 
+  rating:
+    handler: handler.rating
+    events:
+      - http:
+          path: rating
+          method: ANY
+          cors: true
+      - http:
+          path: rating/{proxy+}
+          method: ANY
+          cors: true
+
   subscription:
     handler: handler.subscription
     events:
