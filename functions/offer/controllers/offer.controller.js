@@ -5,6 +5,69 @@ import { Offer } from '../models/offer.model';
 import uploadToS3 from '../../common/utils/upload';
 
 export default class OfferController {
+  __offerFilter(query) {
+    this.funcName = '__offerFilter';
+
+    const filter = { deleted: false };
+
+    if (query.q) {
+      filter.$or = [
+        {
+          'offer_name' : {
+            '$regex': query.q,
+            '$options': 'i',
+          },
+        },
+        {
+          'description' : {
+            '$regex': query.q,
+            '$options': 'i',
+          },
+        },
+      ];
+    }
+
+    if (query.category) {
+      const categories = query.category.split(',');
+      filter.category = {
+        $in: categories,
+      };
+    }
+
+    if (query.sub_category) {
+      const sub_categories = query.sub_category.split(',');
+      filter.sub_category = {
+        $in: sub_categories,
+      };
+    }
+
+    if (query.price_from || query.price_to) {
+      filter.price = {};
+
+      if (query.price_from) {
+        filter.price.$gt = query.price_from;
+      }
+
+      if (query.price_to) {
+        filter.price.$lt = query.price_to;
+      }
+    }
+
+    if (query.delivery_from || query.delivery_to) {
+      filter.time_of_delivery = {};
+
+      if (query.delivery_from) {
+        filter.time_of_delivery.$gt = query.elivery_from;
+      }
+
+      if (query.delivery_to) {
+        filter.time_of_delivery.$lt = query.delivery_to;
+      }
+    }
+
+    
+  }
+
   /**
    * return the list of all offers
    */
@@ -15,12 +78,13 @@ export default class OfferController {
     };
 
     try {
+      const filter = this.__offerFilter(req.query);
       const total = await Offer
-        .find({ deleted: false })
+        .find(filter)
         .count();
 
       const offers = await Offer
-        .find({ deleted: false })
+        .find(filter)
         .skip(pageOptions.page * pageOptions.limit)
         .limit(pageOptions.limit)
         .populate('user')
