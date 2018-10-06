@@ -5,23 +5,21 @@ import { Offer } from '../models/offer.model';
 import uploadToS3 from '../../common/utils/upload';
 
 export default class OfferController {
-  __offerFilter(query) {
-    this.funcName = '__offerFilter';
-
+  static __offerFilter(query) {
     const filter = { deleted: false };
 
     if (query.q) {
       filter.$or = [
         {
-          'offer_name' : {
-            '$regex': query.q,
-            '$options': 'i',
+          offer_name: {
+            $regex: query.q,
+            $options: 'i',
           },
         },
         {
-          'description' : {
-            '$regex': query.q,
-            '$options': 'i',
+          description: {
+            $regex: query.q,
+            $options: 'i',
           },
         },
       ];
@@ -35,9 +33,9 @@ export default class OfferController {
     }
 
     if (query.sub_category) {
-      const sub_categories = query.sub_category.split(',');
+      const subCategories = query.sub_category.split(',');
       filter.sub_category = {
-        $in: sub_categories,
+        $in: subCategories,
       };
     }
 
@@ -57,7 +55,7 @@ export default class OfferController {
       filter.time_of_delivery = {};
 
       if (query.delivery_from) {
-        filter.time_of_delivery.$gt = query.elivery_from;
+        filter.time_of_delivery.$gt = query.delivery_from;
       }
 
       if (query.delivery_to) {
@@ -65,7 +63,12 @@ export default class OfferController {
       }
     }
 
-    
+    if (query.tags) {
+      const tags = query.tags.split(',');
+      filter.tags = { $all: tags };
+    }
+
+    return filter;
   }
 
   /**
@@ -78,7 +81,7 @@ export default class OfferController {
     };
 
     try {
-      const filter = this.__offerFilter(req.query);
+      const filter = OfferController.__offerFilter(req.query);
       const total = await Offer
         .find(filter)
         .count();
