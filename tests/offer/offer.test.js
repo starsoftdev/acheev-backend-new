@@ -72,9 +72,11 @@ describe('Offer API', async () => {
     expect(data.status).toEqual(MOCK_OFFER.status);
   });
 
-  it('get the list of offers - [get] /offer?page=XXX&limit=XXX', async () => {
+  it('get the list of offers - [get] /offer?page=XXX&limit=XXX&...', async () => {
     const res = await axios.get(
-      `${BASE_URL}?page=0&limit=5`,
+      `${BASE_URL}?page=0&limit=5&q=test&category=${MOCK_OFFER.category},Logo Design&`
+      + `sub_category=${MOCK_OFFER.sub_category},Zeplin Design&price_from=0&price_to=100&`
+      + 'delivery_from=0&delivery_to=10&tags=arshdeep,design',
     );
     const { data } = res;
 
