@@ -40,7 +40,7 @@ export default class TransactionController {
   }
 
   /**
-   * Returns the client token
+   * returns the client token
    */
   static async getClientToken(req, res) {
     try {
@@ -50,6 +50,13 @@ export default class TransactionController {
     } catch (err) {
       return res.error(err.message);
     }
+  }
+
+  /**
+   * returns the user account balance
+   */
+  static getBalance(req, res) {
+    return res.success(req.userBalance);
   }
 
   /**

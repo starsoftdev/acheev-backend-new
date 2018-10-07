@@ -32,19 +32,31 @@ describe('Transaction API', async () => {
     expect(data).toHaveProperty('clientToken');
   });
 
-  // it('deposit money - [post] /transaction/user/:user_id/deposit', async () => {
-  //   const res = await axios.post(
-  //     `${BASE_URL}/user/${userId}/deposit`,
-  //     MOCK_DEPOSIT,
-  //   );
-  //   const { data } = res;
+  it('deposit money - [post] /transaction/user/:user_id/deposit', async () => {
+    const res = await axios.post(
+      `${BASE_URL}/user/${userId}/deposit`,
+      MOCK_DEPOSIT,
+    );
+    const { data } = res;
 
-  //   expect(res.status).toEqual(200);
-  //   expect(typeof data).toBe('object');
+    expect(res.status).toEqual(200);
+    expect(typeof data).toBe('object');
 
-  //   expect(data.success).toEqual(true);
-  //   expect(data).toHaveProperty('transaction_id');
+    expect(data.success).toEqual(true);
+    expect(data).toHaveProperty('transaction_id');
 
-  //   tranId = data.transaction_id;
-  // });
+    tranId = data.transaction_id;
+  });
+
+  it('get user account balance - [get] /transaction/user/:user_id/balance', async () => {
+    const res = await axios.get(`${BASE_URL}/user/${userId}/balance`);
+    const { data } = res;
+
+    expect(res.status).toEqual(200);
+    expect(typeof data).toBe('object');
+
+    expect(data).toHaveProperty('working_balance');
+    expect(data).toHaveProperty('available_balance');
+    expect(data).toHaveProperty('pending_balance');
+  });
 });
