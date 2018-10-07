@@ -93,6 +93,18 @@ functions:
           method: ANY
           cors: true
 
+  transaction:
+    handler: handler.transaction
+    events:
+      - http:
+          path: transaction
+          method: ANY
+          cors: true
+      - http:
+          path: transaction/{proxy+}
+          method: ANY
+          cors: true
+
   user:
     handler: handler.user
     events:

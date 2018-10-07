@@ -3,12 +3,17 @@ import braintree from 'braintree';
 
 class Braintree {
   constructor(merchantId, publicKey, privateKey, testMode) {
+    this.testMode = testMode;
     this.gateway = braintree.connect({
       environment: testMode ? braintree.Environment.Sandbox : braintree.Environment.Production,
       merchantId,
       publicKey,
       privateKey,
     });
+  }
+
+  mode() {
+    return this.testMode ? 'Sandbox' : 'Production';
   }
 
   async clientToken() {
@@ -65,6 +70,28 @@ class Braintree {
       }
 
       return true;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async sale({
+    amount,
+    nonce,
+  }) {
+    try {
+      const res = await this.gateway.transaction.sale({
+        amount: amount,
+        paymentMethodNonce: nonce,
+        options: {
+          submitForSettlement: true,
+        },
+      });
+      if (!res.success) {
+        throw new Error(res.message);
+      }
+
+      return res.transaction.id;
     } catch (err) {
       throw err;
     }

@@ -5,7 +5,7 @@ const brainTree = new Braintree(
   process.env.BRAINTREE_MERCHANT_ID,
   process.env.BRAINTREE_PUBLIC_KEY,
   process.env.BRAINTREE_PRIVATE_KEY,
-  false,
+  process.env.BRAINTREE_TEST_MODE,
 );
 
 export default class SubscriptionController {
@@ -109,9 +109,9 @@ export default class SubscriptionController {
    */
   static async getClientToken(req, res) {
     try {
-      const token = await brainTree.clientToken();
+      const clientToken = await brainTree.clientToken();
 
-      return res.success({ token });
+      return res.success({ clientToken });
     } catch (err) {
       return res.error(err.message);
     }
