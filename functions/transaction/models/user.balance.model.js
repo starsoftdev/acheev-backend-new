@@ -20,6 +20,10 @@ if (!global.UserBalanceSchema) {
     pending_balance: {
       type: Number,
     },
+    deleted: {
+      type: Boolean,
+      default: false,
+    },
   });
 }
 
