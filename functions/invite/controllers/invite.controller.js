@@ -2,8 +2,9 @@ import _ from 'lodash';
 
 import { User } from '../../user/models/user.model';
 import { Invite } from '../models/invite.model';
+import mailer from '../../common/utils/smtp-mailer';
 
-export default class OfferController {
+export default class InviteController {
   /**
    * return the list of all invites
    */
@@ -115,6 +116,25 @@ export default class OfferController {
     }
   }
 
+  static async __sendInvitationEmail({
+    inviter,
+    invitee_name,
+    invitee_email,
+  }) {
+    const mailOptions = {
+      to: invitee_email,
+      from: process.env.FROM_EMAIL,
+      subject: 'You are invited!',
+      template: 'invite-email',
+      context: {
+        invitee_name: `${invitee_name}`,
+        referral_link: `${process.env.FRONT_BASE_URL}/referral/${inviter}`,
+      },
+    };
+
+    await mailer.sendMail(mailOptions);
+  }
+
   /**
    * create a new invite
    */
@@ -139,6 +159,13 @@ export default class OfferController {
         },
       ));
       await Offer.populate(invite, { path: 'inviter' });
+
+      // send invitation email to user
+      await InviteController.__sendInvitationEmail({
+        inviter: req.body.inviter,
+        invitee_name: req.body.invitee_name,
+        invitee_email: req.body.invitee_email,
+      });
 
       return res.success(invite);
     } catch (err) {
