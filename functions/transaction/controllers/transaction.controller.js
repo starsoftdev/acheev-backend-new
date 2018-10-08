@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import Braintree from '../../subscription/lib/braintree';
 import { Transaction } from '../models/transaction.model';
 import { UserBalance } from '../models/user.balance.model';
@@ -64,7 +62,7 @@ export default class TransactionController {
    */
   static async despoit(req, res) {
     try {
-      const amount = req.body.amount;
+      const { amount } = req.body;
       const nonce = req.body.payment_method_nonce;
 
       const gatewayTranId = await brainTree.sale({
@@ -83,12 +81,12 @@ export default class TransactionController {
       });
 
       // update user balance
-      req.userBalance += amount;
+      req.userBalance.available_balance += amount;
       await req.userBalance.save();
 
       return res.success({
         success: true,
-        'transaction_id': tranId,
+        transaction_id: tranId,
       });
     } catch (err) {
       return res.error(err.message);

@@ -4,7 +4,7 @@ import {
 
 const MOCK_DEPOSIT = {
   amount: 10.00,
-  nonce: 'fake-valid-nonce',
+  payment_method_nonce: 'fake-valid-nonce',
 };
 
 module.exports = {

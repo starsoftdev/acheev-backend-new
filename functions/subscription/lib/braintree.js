@@ -81,7 +81,7 @@ class Braintree {
   }) {
     try {
       const res = await this.gateway.transaction.sale({
-        amount: amount,
+        amount,
         paymentMethodNonce: nonce,
         options: {
           submitForSettlement: true,
