@@ -70,6 +70,9 @@ if (!global.UserSchema) {
       profile: {
         type: ProfileSchema,
       },
+      referred_by: { // the one who referred the user to register/sign up
+        type: String,
+      },
       deleted: { // a logical delete flag for the cart
         type: Boolean,
         default: false,

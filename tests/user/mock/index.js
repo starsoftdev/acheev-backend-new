@@ -6,6 +6,7 @@ const MOCK_USER = {
   password: 'password',
   roles: ['administrator'],
   status: 'approved',
+  referred_by: '',
   profile: {
     title: 'Product Designer and Developer with 15 years of experience',
     description: 'My name is Angie Lucas. I \'m a driven and flexible graphic designer with '
