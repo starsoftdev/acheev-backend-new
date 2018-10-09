@@ -90,9 +90,9 @@ describe('Offer API', async () => {
     expect(Array.isArray(data.offers)).toBe(true);
   });
 
-  it('get the list of offers by a user - [get] /offer/user/:user_id?page=XXX&limit=XXX', async () => {
+  it('get the list of offers by a user - [get] /offer/user/:user_id', async () => {
     const res = await axios.get(
-      `${BASE_URL}/user/${userId}?page=0&limit=5`,
+      `${BASE_URL}/user/${userId}`,
     );
     const { data } = res;
 
