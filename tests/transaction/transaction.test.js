@@ -11,7 +11,6 @@ const BASE_URL = `${process.env.CONFIG_API_URL}/transaction`;
 
 describe('Transaction API', async () => {
   let userId;
-  let tranId;
 
   beforeAll(async () => {
     const user = await User.create(MOCK_USER);
@@ -44,8 +43,6 @@ describe('Transaction API', async () => {
 
     expect(data.success).toEqual(true);
     expect(data).toHaveProperty('transaction_id');
-
-    tranId = data.transaction_id;
   });
 
   it('get user account balance - [get] /transaction/user/:user_id/balance', async () => {
