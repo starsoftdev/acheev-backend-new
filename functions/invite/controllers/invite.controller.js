@@ -16,7 +16,7 @@ export default class InviteController {
 
     try {
       const total = await Invite
-        .find({ deleted: false });
+        .find({ deleted: false })
         .count();
 
       const invites = await Invite
@@ -118,8 +118,8 @@ export default class InviteController {
 
   static async __sendInvitationEmail({
     inviter,
-    invitee_name,
-    invitee_email,
+    invitee_name, // eslint-disable-line camelcase
+    invitee_email, // eslint-disable-line camelcase
   }) {
     const mailOptions = {
       to: invitee_email,
@@ -127,7 +127,7 @@ export default class InviteController {
       subject: 'You are invited!',
       template: 'invite-email',
       context: {
-        invitee_name: `${invitee_name}`,
+        invitee_name: `${invitee_name}`, // eslint-disable-line camelcase
         referral_link: `${process.env.FRONT_BASE_URL}/referral/${inviter}`,
       },
     };
@@ -158,7 +158,7 @@ export default class InviteController {
           inviter: req.params.user_id,
         },
       ));
-      await Offer.populate(invite, { path: 'inviter' });
+      await Invite.populate(invite, { path: 'inviter' });
 
       // send invitation email to user
       await InviteController.__sendInvitationEmail({

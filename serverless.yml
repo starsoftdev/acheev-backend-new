@@ -57,6 +57,18 @@ functions:
           method: ANY
           cors: true
 
+  invite:
+    handler: handler.invite
+    events:
+      - http:
+          path: invite
+          method: ANY
+          cors: true
+      - http:
+          path: invite/{proxy+}
+          method: ANY
+          cors: true
+
   offer:
     handler: handler.offer
     events:

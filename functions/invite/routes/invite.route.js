@@ -6,9 +6,9 @@ import InviteController from '../controllers/invite.controller';
 const router = express.Router();
 
 router.get('/', InviteController.list);
-router.get('/:id', OfferController.getOne);
-router.put('/:id', OfferController.update);
-router.delete('/:id', OfferController.destroy);
+router.get('/:id', InviteController.getOne);
+router.put('/:id', InviteController.update);
+router.delete('/:id', InviteController.destroy);
 
 router.get('/user/:user_id', InviteController.listByUser);
 router.post('/user/:user_id', InviteController.create);
