@@ -6,7 +6,7 @@ import {
   MOCK_IMAGE_ENCODED,
 } from './mock';
 
-jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
+jest.setTimeout(process.env.MAX_TIMEOUT || 50000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/user`;
 
 describe('User API', async () => {

@@ -8,7 +8,7 @@ import {
   UPDATE_MOCK_RATING,
 } from './mock';
 
-jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
+jest.setTimeout(process.env.MAX_TIMEOUT || 50000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/rating`;
 
 describe('Rating API', async () => {
