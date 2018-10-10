@@ -6,7 +6,7 @@ const MOCK_INVITE = {
 
 const UPDATE_MOCK_INVITE = {
   status: 'registered',
-  collected_amount: 50.00,
+  collected_amount: 40.00,
 };
 
 module.exports = {
