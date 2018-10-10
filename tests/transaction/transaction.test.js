@@ -6,7 +6,7 @@ import {
   MOCK_USER,
 } from './mock';
 
-jest.setTimeout(process.env.MAX_TIMEOUT || 100000);
+jest.setTimeout(process.env.MAX_TIMEOUT || 50000);
 const BASE_URL = `${process.env.CONFIG_API_URL}/transaction`;
 
 describe('Transaction API', async () => {
