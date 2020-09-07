@@ -57,7 +57,7 @@
     "file-type": "^9.0.0",
     "fs": "0.0.1-security",
     "googleapis": "^32.0.0",
-    "handlebars": "^4.0.12",
+    "handlebars": "^4.5.3",
     "js-base64": "^2.4.9",
     "json2csv": "^4.2.1",
     "jsonwebtoken": "^8.3.0",
